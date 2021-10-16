@@ -1,0 +1,37 @@
+---
+ apiVersion: v1
+ kind: Pod
+ metadata:
+   name: mock-enterprise-environment
+ spec:
+   containers:
+     - name: mysql-server
+       image: mysql/mysql-server:8.0
+       env:
+         - name: MYSQL_ROOT_PASSWORD
+           value: 'root'
+       volumeMounts:
+       - mountPath: /docker-entrypoint-initdb.d
+         name: mysql_startup_scripts
+     - name: python-client
+       image: laudio/pyodbc:1.0.37-sqlcmd
+       volumeMounts:
+       - mountPath: /jdbc
+         name: jdbc_drivers
+     - name: sqoop-client
+       image: dvoros/sqoop:hive2-sqoop1.4.7
+       volumeMounts:
+       - mountPath: /jdbc
+         name: jdbc_drivers
+     - name: pyspark-client
+       image: jupyter/pyspark-notebook
+       volumeMounts:
+       - mountPath: /jdbc
+         name: jdbc_drivers
+   volumes:
+   - name: mysql_startup_scripts
+     hostPath:
+       path: $(pwd)/startup_script
+   - name: jdbc_drivers
+     hostPath:
+       path: ~/sqoop_test
