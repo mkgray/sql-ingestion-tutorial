@@ -18,11 +18,15 @@
        volumeMounts:
        - mountPath: /jdbc
          name: jdbc-drivers
+       command: [ "/bin/bash", "-c", "--"]
+       args: [ "while true; do sleep 5; done;" ]
      - name: sqoop-client
        image: dvoros/sqoop:hive2-sqoop1.4.7
        volumeMounts:
        - mountPath: /jdbc
          name: jdbc-drivers
+       command: [ "/bin/bash", "-c", "--"]
+       args: [ "while true; do sleep 5; done;" ]
      - name: pyspark-client
        image: jupyter/pyspark-notebook
        volumeMounts:
