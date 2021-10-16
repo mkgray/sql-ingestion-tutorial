@@ -12,26 +12,26 @@
            value: 'root'
        volumeMounts:
        - mountPath: /docker-entrypoint-initdb.d
-         name: mysql_startup_scripts
+         name: mysql-startup-scripts
      - name: python-client
        image: laudio/pyodbc:1.0.37-sqlcmd
        volumeMounts:
        - mountPath: /jdbc
-         name: jdbc_drivers
+         name: jdbc-drivers
      - name: sqoop-client
        image: dvoros/sqoop:hive2-sqoop1.4.7
        volumeMounts:
        - mountPath: /jdbc
-         name: jdbc_drivers
+         name: jdbc-drivers
      - name: pyspark-client
        image: jupyter/pyspark-notebook
        volumeMounts:
        - mountPath: /jdbc
-         name: jdbc_drivers
+         name: jdbc-drivers
    volumes:
-   - name: mysql_startup_scripts
+   - name: mysql-startup-scripts
      hostPath:
-       path: $(pwd)/startup_script
-   - name: jdbc_drivers
+       path: /app/sql_ingestion_tutorial/db_initialization_scripts
+   - name: jdbc-drivers
      hostPath:
-       path: ~/sqoop_test
+       path: /app/sql_ingestion_tutorial/jdbc_drivers
