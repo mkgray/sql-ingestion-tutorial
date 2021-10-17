@@ -22,3 +22,11 @@ kubectl exec -it mock-enterprise-environment --container pyspark-client -- pyspa
 kubectl exec -it mock-enterprise-environment --container sqoop-client -- /bin/bash
 
 kubectl delete pod mock-enterprise-environment
+
+### MINIKUBE needed
+minikube start
+minikube mount /app/sql_ingestion_tutorial/jdbc_drivers:/app/sql_ingestion_tutorial/jdbc_drivers
+minikube mount /app/sql_ingestion_tutorial/db_initialization_scripts:/app/sql_ingestion_tutorial/db_initialization_scripts
+
+
+minikube start --mount-string /app/sql_ingestion_tutorial/jdbc_drivers:/app/sql_ingestion_tutorial/jdbc_drivers --mount
