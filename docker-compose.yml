@@ -1,0 +1,22 @@
+version: '1'
+services:
+  mysql-server:
+    image: 'mysql/mysql-server:8.0'
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./DB/startup_script:/docker-entrypoint-initdb.d
+  python-client:
+    image: laudio/pyodbc:1.0.37-sqlcmd
+    volumes:
+      - ./jdbc_drivers:/jdbc
+    command: tail -F anything
+  sqoop-client:
+    image: dvoros/sqoop:hive2-sqoop1.4.7
+    volumes:
+      - ./jdbc_drivers:/jdbc
+    command: tail -F anything
+  pyspark-client:
+    image: jupyter/pyspark-notebook
+    volumes:
+      - ./jdbc_drivers:/jdbc

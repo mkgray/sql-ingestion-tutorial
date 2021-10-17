@@ -1,16 +1,11 @@
 # sql-ingestion-tutorial
 Tutorial to complement Towards Data Science article on ingesting SQL DBs
 
-# TODOS:
-- Need to create static locations to place files on local machine
-- Add a makefile possibly???
-/app/sql_ingestion_tutorial/db_initialization_scripts
-/app/sql_ingestion_tutorial/jdbc_drivers
+# Commands to run
+docker-compose up -d
 
-# Makefile
-sudo mkdir /app
-sudo mkdir /app/sql_ingestion_tutorial
-sudo mkdir /app/sql_ingestion_tutorial/db_initialization_scripts
-sudo mkdir /app/sql_ingestion_tutorial/jdbc_drivers
-sudo cp DB/startup_script/init.sql /app/sql_ingestion_tutorial/db_initialization_scripts
-sudo cp ~/sqoop_test/mysql-connector-java-8.0.26.jar /app/sql_ingestion_tutorial/jdbc_drivers
+docker exec -it sql-ingestion-tutorial-pyspark-client-1 pyspark --jars /jdbc/mysql-connector-java-8.0.26.jar
+docker exec -it sql-ingestion-tutorial-python-client-1 python
+docker exec -it sql-ingestion-tutorial-sqoop-client-1 /bin/bash
+
+docker-compose down
