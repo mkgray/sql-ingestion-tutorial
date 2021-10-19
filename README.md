@@ -1,32 +1,27 @@
 # sql-ingestion-tutorial
-Tutorial to complement Towards Data Science article on ingesting SQL DBs
+Tutorial files to complement Towards Data Science article on ingesting SQL DBs.
 
-# Add the JDBC Driver to a folder in this project called "jdbc_drivers"
+### Prerequisites
+* Docker (and basic knowledge of)
+* JDBC Driver (see below for steps to acquire)
 
+### JDBC Driver Setup
+* Create a folder in this directory
+* Navigate to https://dev.mysql.com/downloads/connector/j/
+* Download "Platform Independent" connector
+* Extract files
+* Move the .jar file to a directory in this folder called "jdbc_drivers"
+  * .jar file will be named "mysql-connector-java-8.0.26.jar" where 8.0.26 may be be changed to reflect the version downloaded
 
-# Commands to run
-docker-compose up -d
+### Starting the Docker Environment
+Command `docker-compose up -d` will start the Docker environment. `-d` option specifies the detached parameter and will have the environment run in the background after being launched.
 
-docker exec -it sql-ingestion-tutorial-pyspark-client-1 pyspark --jars /jdbc/mysql-connector-java-8.0.26.jar
-docker exec -it sql-ingestion-tutorial-python-client-1 python
-docker exec -it sql-ingestion-tutorial-sqoop-client-1 /bin/bash
+### Interacting with the Client Containers
+The command `docker exec -it sql-ingestion-tutorial-pyspark-client-1 pyspark --jars /jdbc/*` will start an interactive session with the container used for establishing a connection via PySpark. `--jars` option is used to feed all .jar files (specifically the JDBC Connector) to PySpark.
 
-docker-compose down
+The command `docker exec -it sql-ingestion-tutorial-python-client-1 python` will start an interactive session with the container used for establishing a connection via Python.
 
+The command `docker exec -it sql-ingestion-tutorial-sqoop-client-1 /bin/bash` will start an interactive session with the container used for establishing a connection via Sqoop.
 
-# Commands for Kubernetes
-kubectl create -f pod.yaml
-
-kubectl exec -it mock-enterprise-environment --container python-client -- python
-kubectl exec -it mock-enterprise-environment --container pyspark-client -- pyspark --jars /jdbc/mysql-connector-java-8.0.26.jar
-kubectl exec -it mock-enterprise-environment --container sqoop-client -- /bin/bash
-
-kubectl delete pod mock-enterprise-environment
-
-### MINIKUBE needed
-minikube start
-minikube mount /app/sql_ingestion_tutorial/jdbc_drivers:/app/sql_ingestion_tutorial/jdbc_drivers
-minikube mount /app/sql_ingestion_tutorial/db_initialization_scripts:/app/sql_ingestion_tutorial/db_initialization_scripts
-
-
-minikube start --mount-string /app/sql_ingestion_tutorial/jdbc_drivers:/app/sql_ingestion_tutorial/jdbc_drivers --mount
+### Stopping the Docker Environment
+Command `docker-compose down` will stop the Docker environment.
