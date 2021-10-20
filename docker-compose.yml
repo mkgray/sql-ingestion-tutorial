@@ -2,8 +2,6 @@ version: '1'
 services:
   mysql-server:
     image: 'mysql/mysql-server:8.0'
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
     volumes:
       - ./mysql_scripts:/docker-entrypoint-initdb.d
   python-client:
