@@ -6,8 +6,6 @@ services:
       - ./mysql_scripts:/docker-entrypoint-initdb.d
   python-client:
     image: laudio/pyodbc:1.0.37-sqlcmd
-    volumes:
-      - ./jdbc_drivers:/jdbc
     command: tail -F anything
   sqoop-client:
     image: dvoros/sqoop:hive2-sqoop1.4.7
