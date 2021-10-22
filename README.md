@@ -19,6 +19,8 @@ Command `docker-compose up -d` will start the Docker environment. `-d` option sp
 ### Interacting with the Client Containers
 The command `docker exec -it sql-ingestion-tutorial-pyspark-client-1 pyspark --jars /jdbc/*` will start an interactive session with the container used for establishing a connection via PySpark. `--jars` option is used to feed all .jar files (specifically the JDBC Connector) to PySpark.
 
+The command `docker exec -it sql-ingestion-tutorial-pyspark-client-1 spark-shell --jars /jdbc/*` will start an interactive session with the container used for establishing a connection via Scala Spark. `--jars` option is used to feed all .jar files (specifically the JDBC Connector) to PySpark.
+
 The command `docker exec -it sql-ingestion-tutorial-python-client-1 python` will start an interactive session with the container used for establishing a connection via Python.
 
 The command `docker exec -it sql-ingestion-tutorial-sqoop-client-1 /bin/bash` will start an interactive session with the container used for establishing a connection via Sqoop.
